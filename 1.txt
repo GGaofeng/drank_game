@@ -1,0 +1,1 @@
+cd /d c:\Users\123\Desktop\drink_game && python -m http.server 6969

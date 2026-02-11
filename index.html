@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta name="theme-color" content="#1a1a2e" />
+  <title>今晚不回家 🍻 酒桌必玩</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- 首页 -->
+    <section id="view-home" class="view active">
+      <header class="header">
+        <h1>今晚不回家</h1>
+        <p class="tagline">酒桌 · 聚会 · 团建 · 宿舍必玩</p>
+      </header>
+      <nav class="game-nav">
+        <button type="button" class="game-btn" data-game="wheel">
+          <span class="icon">🎲</span>
+          <span>转盘喝酒</span>
+        </button>
+        <button type="button" class="game-btn" data-game="truth-dare">
+          <span class="icon">💬</span>
+          <span>真心话大冒险</span>
+        </button>
+        <button type="button" class="game-btn" data-game="undercover">
+          <span class="icon">🧠</span>
+          <span>谁是卧底</span>
+        </button>
+        <button type="button" class="game-btn" data-game="cards">
+          <span class="icon">🃏</span>
+          <span>抽卡惩罚</span>
+        </button>
+      </nav>
+      <footer class="home-footer">
+        <button type="button" id="btn-rules" class="link-btn">游戏说明</button>
+        <button type="button" id="btn-night" class="link-btn" aria-pressed="false">夜间模式</button>
+      </footer>
+    </section>
+
+    <!-- 转盘喝酒 -->
+    <section id="view-wheel" class="view">
+      <header class="sub-header">
+        <button type="button" class="back-btn" data-back>← 返回</button>
+        <h2>转盘喝酒</h2>
+      </header>
+      <div class="wheel-wrap">
+        <div id="wheel-container">
+          <canvas id="wheel-canvas"></canvas>
+          <div id="wheel-pointer">▼</div>
+        </div>
+        <p class="wheel-hint">点击开始，指针停到谁谁执行</p>
+        <button type="button" id="wheel-start" class="primary-btn">开始旋转</button>
+      </div>
+      <div id="wheel-result" class="result-box hidden">
+        <p class="result-label">本轮结果</p>
+        <p id="wheel-result-text" class="result-text"></p>
+      </div>
+    </section>
+
+    <!-- 真心话大冒险 -->
+    <section id="view-truth-dare" class="view">
+      <header class="sub-header">
+        <button type="button" class="back-btn" data-back>← 返回</button>
+        <h2>真心话大冒险</h2>
+      </header>
+      <div class="mode-tabs">
+        <button type="button" class="tab-btn active" data-tab="normal">普通</button>
+        <button type="button" class="tab-btn" data-tab="spicy">刺激 🔞</button>
+      </div>
+      <div class="truth-dare-btns">
+        <button type="button" id="btn-truth" class="choice-btn truth">真心话</button>
+        <button type="button" id="btn-dare" class="choice-btn dare">大冒险</button>
+      </div>
+      <div id="truth-dare-result" class="result-card hidden">
+        <p id="truth-dare-text" class="result-text"></p>
+      </div>
+    </section>
+
+    <!-- 谁是卧底 -->
+    <section id="view-undercover" class="view">
+      <header class="sub-header">
+        <button type="button" class="back-btn" data-back>← 返回</button>
+        <h2>谁是卧底</h2>
+      </header>
+      <div id="undercover-setup" class="undercover-setup">
+        <p>玩家人数（5～12人）</p>
+        <div class="number-picker">
+          <button type="button" class="num-btn" data-dir="-1">−</button>
+          <span id="undercover-count">6</span>
+          <button type="button" class="num-btn" data-dir="1">+</button>
+        </div>
+        <button type="button" id="undercover-start" class="primary-btn">发词开始</button>
+      </div>
+      <div id="undercover-play" class="hidden">
+        <p class="round-info">第 <span id="uc-round">1</span> 位玩家 · 查看你的词后传手机给下一位</p>
+        <div id="uc-word-box" class="word-box">
+          <p id="uc-word"></p>
+        </div>
+        <p class="hint">描述时不要直接说出词语，所有人看完词后投票淘汰一人</p>
+        <button type="button" id="uc-next" class="primary-btn">下一位查看</button>
+      </div>
+    </section>
+
+    <!-- 抽卡惩罚 -->
+    <section id="view-cards" class="view">
+      <header class="sub-header">
+        <button type="button" class="back-btn" data-back>← 返回</button>
+        <h2>抽卡惩罚</h2>
+      </header>
+      <div class="cards-wrap">
+        <div id="card-deck">
+          <div id="card-front" class="card card-front">抽一张</div>
+          <div id="card-back" class="card card-back hidden">
+            <span id="card-type-icon" class="card-type"></span>
+            <p id="card-content" class="card-content"></p>
+          </div>
+        </div>
+        <button type="button" id="card-draw" class="primary-btn">抽一张</button>
+      </div>
+    </section>
+
+    <!-- 游戏说明 -->
+    <section id="view-rules" class="view">
+      <header class="sub-header">
+        <button type="button" class="back-btn" data-back>← 返回</button>
+        <h2>游戏说明</h2>
+      </header>
+      <div class="rules-content">
+        <h3>🎲 转盘喝酒</h3>
+        <p>点击开始，转盘旋转后指向一人，按提示喝酒或完成惩罚。</p>
+        <h3>💬 真心话大冒险</h3>
+        <p>选真心话或大冒险，随机出一道题，诚实回答或完成挑战。</p>
+        <h3>🧠 谁是卧底</h3>
+        <p>输入人数后发词，多数人拿到同一词，少数人拿到相近词。每轮描述一句，投票淘汰，找出卧底。</p>
+        <h3>🃏 抽卡惩罚</h3>
+        <p>抽一张卡，可能是喝酒、指定别人、免罚或反弹，立即执行。</p>
+      </div>
+    </section>
+  </div>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

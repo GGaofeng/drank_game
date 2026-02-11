@@ -1,0 +1,425 @@
+/* 酒桌游戏 - 移动端优先 */
+:root {
+  --bg: #1a1a2e;
+  --bg-card: #16213e;
+  --accent: #e94560;
+  --accent-light: #ff6b6b;
+  --text: #eee;
+  --text-muted: #a0a0a0;
+  --radius: 16px;
+  --shadow: 0 4px 20px rgba(0,0,0,0.3);
+  --safe-top: env(safe-area-inset-top, 0);
+  --safe-bottom: env(safe-area-inset-bottom, 0);
+}
+
+body.night-mode {
+  --bg: #0f0f1a;
+  --bg-card: #1a1a2e;
+  --accent: #e94560;
+  --text: #e0e0e0;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#app {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  padding: var(--safe-top) 20px var(--safe-bottom);
+}
+
+/* 视图切换 */
+.view {
+  display: none;
+  min-height: 80vh;
+  flex-direction: column;
+  padding-bottom: 24px;
+}
+.view.active {
+  display: flex;
+}
+
+/* 首页 */
+.header {
+  text-align: center;
+  padding: 40px 0 32px;
+}
+.header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  background: linear-gradient(135deg, var(--accent-light), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.tagline {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.game-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.game-btn {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  background: var(--bg-card);
+  border: none;
+  border-radius: var(--radius);
+  color: var(--text);
+  font-size: 17px;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.game-btn:active {
+  transform: scale(0.98);
+}
+.game-btn .icon {
+  font-size: 28px;
+}
+.home-footer {
+  margin-top: auto;
+  padding-top: 32px;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+.link-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* 子页头部 */
+.sub-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0 20px;
+}
+.back-btn {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px 0;
+}
+.sub-header h2 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* 主按钮 */
+.primary-btn {
+  width: 100%;
+  padding: 16px 24px;
+  background: linear-gradient(135deg, var(--accent-light), var(--accent));
+  border: none;
+  border-radius: var(--radius);
+  color: #fff;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(233, 69, 96, 0.4);
+  transition: transform 0.1s, opacity 0.2s;
+}
+.primary-btn:active {
+  transform: scale(0.98);
+}
+.primary-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* 转盘 */
+.wheel-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+}
+#wheel-container {
+  position: relative;
+  width: 280px;
+  height: 280px;
+  margin-bottom: 20px;
+}
+#wheel-canvas {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  box-shadow: var(--shadow);
+}
+#wheel-pointer {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 24px;
+  color: var(--accent);
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+  z-index: 2;
+}
+.wheel-hint {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+.result-box {
+  margin-top: 24px;
+  padding: 20px;
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  width: 100%;
+  text-align: center;
+}
+.result-box.hidden {
+  display: none;
+}
+.result-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.result-text {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+/* 真心话大冒险 */
+.mode-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+.tab-btn {
+  flex: 1;
+  padding: 10px;
+  background: var(--bg-card);
+  border: 2px solid transparent;
+  border-radius: 12px;
+  color: var(--text);
+  font-size: 15px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+.tab-btn.active {
+  border-color: var(--accent);
+  background: rgba(233, 69, 96, 0.15);
+}
+.truth-dare-btns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.choice-btn {
+  padding: 24px 16px;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.2s;
+  box-shadow: var(--shadow);
+}
+.choice-btn:active {
+  transform: scale(0.97);
+}
+.choice-btn.truth {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #fff;
+}
+.choice-btn.dare {
+  background: linear-gradient(135deg, #f093fb, #f5576c);
+  color: #fff;
+}
+.result-card {
+  padding: 24px;
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow);
+}
+.result-card.hidden {
+  display: none;
+}
+.result-card .result-text {
+  font-size: 17px;
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* 谁是卧底 */
+.undercover-setup {
+  text-align: center;
+  padding: 20px 0;
+}
+.undercover-setup p {
+  margin-bottom: 16px;
+  color: var(--text-muted);
+}
+.number-picker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+.num-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  background: var(--bg-card);
+  color: var(--accent);
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+#undercover-count {
+  font-size: 28px;
+  font-weight: 700;
+  min-width: 48px;
+}
+#undercover-play.hidden {
+  display: none;
+}
+.round-info {
+  text-align: center;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+.word-box {
+  padding: 28px;
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  text-align: center;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow);
+}
+#uc-word {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+.hint {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+/* 抽卡 */
+.cards-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 0;
+}
+#card-deck {
+  position: relative;
+  width: 200px;
+  height: 280px;
+  margin-bottom: 28px;
+  perspective: 1000px;
+}
+.card {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  backface-visibility: hidden;
+  box-shadow: var(--shadow);
+  transition: transform 0.6s;
+}
+.card-front {
+  background: linear-gradient(145deg, #2d2d44, #1f1f35);
+  border: 2px dashed var(--text-muted);
+  color: var(--text-muted);
+  font-size: 18px;
+}
+.card-back {
+  background: var(--bg-card);
+  border: 2px solid var(--accent);
+  transform: rotateY(180deg);
+  padding: 20px;
+}
+.card-back.hidden {
+  display: none;
+}
+.card-back.flipped {
+  transform: rotateY(0);
+}
+.card-front.flipped {
+  transform: rotateY(-180deg);
+}
+.card-type {
+  font-size: 36px;
+  margin-bottom: 12px;
+}
+.card-content {
+  font-size: 16px;
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* 游戏说明 */
+.rules-content {
+  padding: 0 0 24px;
+}
+.rules-content h3 {
+  font-size: 16px;
+  margin: 20px 0 8px;
+  color: var(--accent-light);
+}
+.rules-content p {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* 转盘旋转动画 */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(var(--spin-end, 360deg)); }
+}
