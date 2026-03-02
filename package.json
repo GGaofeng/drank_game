@@ -1,0 +1,19 @@
+{
+  "name": "drink-game",
+  "version": "1.0.0",
+  "description": "今晚不回家 🍻 酒桌必玩 - 聚会小游戏",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["game", "party", "drink"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "optionalDependencies": {
+    "mysql2": "^3.6.5"
+  }
+}

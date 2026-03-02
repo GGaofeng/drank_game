@@ -13,7 +13,7 @@
     <section id="view-home" class="view active">
       <header class="header">
         <h1>今晚不回家</h1>
-        <p class="tagline">酒桌 · 聚会 · 团建 · 宿舍必玩</p>
+        <!-- <p class="tagline">酒桌 · 聚会 · 团建 · 宿舍必玩</p> -->
       </header>
       <nav class="game-nav">
         <button type="button" class="game-btn" data-game="wheel">
@@ -31,6 +31,18 @@
         <button type="button" class="game-btn" data-game="cards">
           <span class="icon">🃏</span>
           <span>抽卡惩罚</span>
+        </button>
+        <button type="button" class="game-btn" data-game="number-bomb">
+          <span class="icon">💣</span>
+          <span>数字炸弹</span>
+        </button>
+        <button type="button" class="game-btn" data-game="crocodile">
+          <span class="icon">🐊</span>
+          <span>鳄鱼拔牙</span>
+        </button>
+        <button type="button" class="game-btn" data-game="time-bomb">
+          <span class="icon">⏰</span>
+          <span>定时炸弹</span>
         </button>
       </nav>
       <footer class="home-footer">
@@ -118,6 +130,81 @@
           </div>
         </div>
         <button type="button" id="card-draw" class="primary-btn">抽一张</button>
+      </div>
+    </section>
+
+    <!-- 数字炸弹 -->
+    <section id="view-number-bomb" class="view">
+      <header class="sub-header">
+        <button type="button" class="back-btn" data-back>← 返回</button>
+        <h2>数字炸弹</h2>
+      </header>
+      <div class="bomb-wrap">
+        <div class="bomb-range">
+          <span id="bomb-min">1</span> ~ <span id="bomb-max">100</span>
+        </div>
+        <div class="bomb-input-box">
+          <input type="number" id="bomb-input" placeholder="输入数字" min="1" max="100" />
+          <button type="button" id="bomb-submit" class="primary-btn">确定</button>
+        </div>
+        <p id="bomb-msg" class="bomb-msg">猜一个数字，别踩雷！</p>
+        <div id="bomb-boom" class="hidden">
+          <div class="boom-anim">💥</div>
+          <p class="boom-text">BOOM! 炸啦！</p>
+          <button type="button" id="bomb-restart" class="link-btn">再来一局</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 鳄鱼拔牙 -->
+    <section id="view-crocodile" class="view">
+      <header class="sub-header">
+        <button type="button" class="back-btn" data-back>← 返回</button>
+        <h2>鳄鱼拔牙</h2>
+      </header>
+      <div class="croc-wrap">
+        <div class="croc-head">
+          <div class="croc-eyes">
+            <div class="eye left"></div>
+            <div class="eye right"></div>
+          </div>
+          <div class="croc-jaw-upper">
+            <div class="croc-teeth-row" id="croc-teeth-upper">
+              <!-- 牙齿由 JS 生成 -->
+            </div>
+          </div>
+          <div class="croc-mouth-bg">
+            <div class="croc-throat"></div>
+          </div>
+          <div class="croc-jaw-lower">
+            <div class="croc-teeth-row" id="croc-teeth-lower">
+              <!-- 牙齿由 JS 生成 -->
+            </div>
+          </div>
+        </div>
+        <p id="croc-msg" class="croc-msg">轮流拔牙，小心被咬！</p>
+        <button type="button" id="croc-restart" class="primary-btn hidden">重置牙齿</button>
+      </div>
+    </section>
+
+    <!-- 定时炸弹 -->
+    <section id="view-time-bomb" class="view">
+      <header class="sub-header">
+        <button type="button" class="back-btn" data-back>← 返回</button>
+        <h2>定时炸弹</h2>
+      </header>
+      <div class="time-bomb-wrap">
+        <div id="tb-timer" class="tb-timer">00</div>
+        <div class="tb-question-box">
+          <p id="tb-question">准备好了吗？</p>
+        </div>
+        <button type="button" id="tb-start" class="primary-btn">点火开始</button>
+        <button type="button" id="tb-pass" class="primary-btn hidden">传给下一个人</button>
+        <div id="tb-explode" class="hidden">
+          <div class="boom-anim">🔥</div>
+          <p class="boom-text">时间到！喝！</p>
+          <button type="button" id="tb-restart" class="link-btn">重置</button>
+        </div>
       </div>
     </section>
 
